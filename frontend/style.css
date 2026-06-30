@@ -1,0 +1,175 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:hsl(264, 95%, 7%);
+    color:white;
+    padding:40px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:30px;
+    color:#e50914;
+    font-size:40px;
+}
+
+h2{
+    margin-top:40px;
+    margin-bottom:20px;
+    color:#fff;
+}
+
+form{
+    max-width:700px;
+    margin:auto;
+    background:#1f1f1f;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,0,0,.5);
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:8px;
+    background:#333;
+    color:rgb(255, 255, 255);
+    font-size:16px;
+}
+
+textarea{
+    resize:none;
+    height:90px;
+}
+
+button{
+    background:#e50914;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    transition:.3s;
+    margin-right:10px;
+}
+
+button:hover{
+    background:#ff1f2d;
+    transform:scale(1.05);
+}
+
+#listaFilmes{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:20px;
+    margin-top:30px;
+}
+
+.card{
+    background:#1f1f1f;
+    border-radius:15px;
+    padding:20px;
+    transition:.3s;
+    box-shadow:0 0 15px rgba(0,0,0,.4);
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card h3{
+    color:#e50914;
+    margin-bottom:10px;
+}
+
+.card p{
+    margin:6px 0;
+}
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+hr{
+    border:none;
+    height:1px;
+    background:#333;
+    margin:40px 0;
+}
+
+h2{
+    text-align:center;
+}
+.card{
+    background:s#000000;
+    border-radius:12px;
+    padding:15px;
+    margin-top:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+
+.card img{
+    width:100%;
+    height:350px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.acoes{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+}
+
+.btn-editar{
+    background:#3498db;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.btn-excluir{
+    background:#e74c3c;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.btn-editar:hover{
+    background:#2980b9;
+}
+
+.btn-excluir:hover{
+    background:#c0392b;
+}
+#pesquisa{
+    width:100%;
+    padding:12px;
+    margin:20px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
+#filtroGenero{
+    width:100%;
+    padding:12px;
+    margin-bottom:20px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
+}

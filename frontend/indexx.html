@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieFlix</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>🎬 MovieFlix</h1>
+
+        <form id="filmeForm">
+
+            <h2>Cadastrar Filme</h2>
+
+            <input type="text" id="titulo" placeholder="Título" required>
+
+            <input type="text" id="descricao" placeholder="Descrição">
+
+            <select id="genero">
+    <option value="">Selecione o gênero</option>
+    <option value="Ação">Ação</option>
+    <option value="Aventura">Aventura</option>
+    <option value="Comédia">Comédia</option>
+    <option value="Drama">Drama</option>
+    <option value="Ficção">Ficção</option>
+    <option value="Terror">Terror</option>
+    <option value="Romance">Romance</option>
+    <option value="Suspense">Suspense</option>
+    <option value="Animação">Animação</option>
+    <option value="Documentário">Documentário</option>
+    <option value="Documentário">Outro</option>
+</select>
+
+            <input type="text" id="diretor" placeholder="Diretor">
+            
+            <input type="text" id="imagem" placeholder="URL da imagem do filme">
+
+            <input type="number" id="anoLancamento" placeholder="Ano de Lançamento">
+
+            <input type="number" id="duracao" placeholder="Duração (minutos)">
+
+            <input type="number" step="any" id="nota" placeholder="Nota">
+
+            <button type="submit">
+                💾 Salvar Filme
+            </button>
+
+        </form>
+
+        <h2>Filmes cadastrados</h2>
+
+<input
+    type="text"
+    id="pesquisa"
+    placeholder="🔍 Pesquisar filme..."
+>
+<button type="button" id="buscarTmdb">
+    🔍 Buscar informações
+</button>
+
+<div id="listaFilmes"></div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
