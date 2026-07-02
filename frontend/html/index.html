@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieFlix</title>
+
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <h1 class="logo">🎬 MovieFlix</h1>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#catalogo">Filmes</a>
+            <a href="#categorias">Categorias</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Qual filme vamos assistir hoje?</h2>
+        <p>Descubra filmes incríveis para assistir.</p>
+    </section>
+
+    <main class="container">
+
+        <section class="filtros" id="categorias">
+            <input
+                type="text"
+                id="pesquisa"
+                placeholder="🔍 Pesquisar filmes..."
+            >
+
+            <select id="filtroGenero">
+                <option value="">Todos os gêneros</option>
+                <option value="Ação">Ação</option>
+                <option value="Aventura">Aventura</option>
+                <option value="Comédia">Comédia</option>
+                <option value="Drama">Drama</option>
+                <option value="Ficção">Ficção</option>
+                <option value="Terror">Terror</option>
+                <option value="Romance">Romance</option>
+                <option value="Suspense">Suspense</option>
+                <option value="Animação">Animação</option>
+                <option value="Documentário">Documentário</option>
+                <option value="Outro">Outro</option>
+            </select>
+        </section>
+
+        <section id="catalogo">
+            <h2>Catálogo</h2>
+            <div id="listaFilmes"></div>
+        </section>
+       <section class="hero">
+
+    <div class="hero-content">
+
+        <h2>Qual filme vamos assistir hoje?</h2>
+
+        <p>
+            Descubra milhares de filmes incríveis e monte sua lista de favoritos.
+        </p>
+
+        <a href="#catalogo" class="btn-explorar">
+            🎬 Explorar Catálogo
+        </a>
+
+    </div>
+
+</section>
+
+    </main>
+
+    <script src="../javascript/home.js"></script>
+</body>
+</html>

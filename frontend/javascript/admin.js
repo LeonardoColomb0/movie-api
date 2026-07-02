@@ -10,6 +10,16 @@ const API_KEY_TMDB = "2690200ad3d3b02589ee559ee5d33bdb";
 // CADASTRAR OU EDITAR
 formulario.addEventListener("submit", async function (event) {
     event.preventDefault();
+    let nota = null;
+
+if (document.getElementById("nota").value !== "") {
+    nota = Number(document.getElementById("nota").value);
+
+    if (nota < 0 || nota > 10) {
+        alert("Valor inválido! A nota deve ser entre 0 e 10.");
+        return;
+    }
+}
 
     const filme = {
         titulo: document.getElementById("titulo").value || "",
@@ -23,9 +33,8 @@ formulario.addEventListener("submit", async function (event) {
         duracao: document.getElementById("duracao").value
             ? Number(document.getElementById("duracao").value)
             : null,
-        nota: document.getElementById("nota").value
-            ? Number(document.getElementById("nota").value)
-            : null
+        nota: nota
+            
     };
 
     const url = filmeEditando
