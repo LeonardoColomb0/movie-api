@@ -1,0 +1,148 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#141414;
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 50px;
+
+    background:#111;
+
+    border-bottom:2px solid #e50914;
+}
+
+.logo{
+    color:#e50914;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
+
+.container{
+    width:900px;
+    margin:40px auto;
+}
+
+h2{
+    margin-bottom:20px;
+}
+
+form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+input,
+textarea,
+select{
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+}
+
+textarea{
+
+    height:130px;
+
+    resize:none;
+
+}
+
+.botoes{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.btn-principal{
+
+    flex:1;
+
+    padding:15px;
+
+    border:none;
+
+    background:#e50914;
+
+    color:white;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+.btn-secundario{
+
+    flex:1;
+
+    padding:15px;
+
+    border:none;
+
+    background:#444;
+
+    color:white;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+.btn-principal:hover{
+
+    background:#b20710;
+
+}
+
+.btn-secundario:hover{
+
+    background:#666;
+
+}
+
+#listaFilmes{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+
+    gap:25px;
+
+    margin-top:30px;
+
+}
+
+.card{
+
+    background:#1f1f1f;
+
+    border-radius:15px;
+
+    padding:20px;
+
+}

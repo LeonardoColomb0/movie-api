@@ -14,9 +14,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     padding: 20px 50px;
-
     background-color: #111;
     border-bottom: 2px solid #e50914;
 }
@@ -35,35 +33,140 @@ body {
     color: white;
     text-decoration: none;
     font-size: 18px;
-    transition: .3s;
 }
 
 .navbar a:hover {
     color: #e50914;
 }
-.hero {
-    min-height: 500px;
 
+.hero {
+    min-height: 650px;
     display: flex;
     align-items: center;
-
     padding: 0 70px;
-
-    background-image:
-        linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)),
-        url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1600");
-
     background-size: cover;
     background-position: center;
 }
 
+.hero-content {
+    max-width: 650px;
+}
+
 .hero h2 {
-    font-size: 48px;
-    margin-bottom: 15px;
+    font-size: 55px;
+    margin-bottom: 20px;
 }
 
 .hero p {
     font-size: 22px;
-    color: #ccc;
-    max-width: 500px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.btn-explorar {
+    margin-top: 25px;
+    padding: 15px 35px;
+    background: #e50914;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-explorar:hover {
+    background: #b20710;
+}
+
+.filtros {
+    display: flex;
+    gap: 20px;
+    padding: 40px 60px;
+}
+
+#pesquisa,
+#filtroGenero {
+    height: 50px;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+}
+
+#pesquisa {
+    width: 420px;
+}
+
+#filtroGenero {
+    width: 220px;
+}
+
+#catalogo {
+    padding: 20px 50px 60px;
+}
+
+#catalogo h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+#listaFilmes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: #1c1c1c;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: .35s;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,.4);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    transition: .35s;
+}
+
+.card:hover img {
+    transform: scale(1.05);
+    filter: brightness(.7);
+}
+
+.card-info {
+    padding: 20px;
+}
+
+.card-info h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.card-info p {
+    color: #cfcfcf;
+    margin-bottom: 8px;
+}
+
+.btn-card {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #e50914;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-card:hover {
+    background: #b20710;
 }

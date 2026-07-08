@@ -1,18 +1,17 @@
 const pesquisa = document.getElementById("pesquisa");
 const filtroGenero = document.getElementById("filtroGenero");
 
-// LISTAR FILMES PARA CLIENTE
 async function carregarFilmes() {
     const resposta = await fetch("http://localhost:8080/filmes");
     const filmes = await resposta.json();
+
+    carregarBanner(filmes);
 
     const textoPesquisa = pesquisa.value.toLowerCase();
     const generoSelecionado = filtroGenero.value;
 
     const filmesFiltrados = filmes.filter(filme => {
-        const passouPesquisa = filme.titulo
-            .toLowerCase()
-            .includes(textoPesquisa);
+        const passouPesquisa = filme.titulo.toLowerCase().includes(textoPesquisa);
 
         const passouGenero =
             generoSelecionado === "" ||
@@ -26,49 +25,70 @@ async function carregarFilmes() {
 
     filmesFiltrados.forEach(filme => {
         lista.innerHTML += `
-            <div class="card">
-                <img
-                    src="${filme.imagem || 'https://placehold.co/300x450?text=Sem+Imagem'}"
+            <div class="card" onclick="verDetalhes(${filme.id})">
+                <img 
+                    src="${filme.imagem || 'https://placehold.co/300x450?text=Sem+Imagem'}" 
                     alt="${filme.titulo}"
-                    style="
-                        width:100%;
-                        height:350px;
-                        object-fit:cover;
-                        border-radius:10px;
-                        margin-bottom:15px;
-                    "
                 >
 
-                <h3>${filme.titulo}</h3>
+                <div class="card-info">
+                    <h3>${filme.titulo}</h3>
+                    <p>⭐ ${filme.nota ?? 0}/10</p>
+                    <p>📅 ${filme.anoLancamento ?? ""}</p>
 
-                <p><strong>Descrição:</strong> ${filme.descricao ?? ""}</p>
-                <p><strong>Gênero:</strong> ${filme.genero ?? ""}</p>
-                <p><strong>Diretor:</strong> ${filme.diretor ?? ""}</p>
-                <p><strong>Ano:</strong> ${filme.anoLancamento ?? ""}</p>
-                <p><strong>Duração:</strong> ${filme.duracao ?? ""} min</p>
-
-                <p>
-                    <strong>Avaliação:</strong><br>
-                    ${"⭐".repeat(Math.max(1, Math.round((filme.nota ?? 0) / 2)))}
-                    (${filme.nota ?? 0}/10)
-                </p>
-
-                <button onclick="verDetalhes(${filme.id})">
-                    Ver detalhes
-                </button>
+                    <button class="btn-card">
+                        Ver detalhes →
+                    </button>
+                </div>
             </div>
         `;
     });
 }
 
-// VER DETALHES
+function carregarBanner(filmes) {
+    if (filmes.length === 0) return;
+
+    const filmeDestaque = filmes.reduce((maior, filme) => {
+        return (filme.nota ?? 0) > (maior.nota ?? 0) ? filme : maior;
+    });
+
+    const hero = document.querySelector(".hero");
+
+    hero.style.backgroundImage = `
+        linear-gradient(
+            to right,
+            rgba(0,0,0,.95),
+            rgba(0,0,0,.75),
+            rgba(0,0,0,.35)
+        ),
+        url('${filmeDestaque.banner || filmeDestaque.imagem || "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1600"}')
+    `;
+
+    hero.style.backgroundSize = "cover";
+    hero.style.backgroundPosition = "center";
+
+    document.querySelector(".hero-content").innerHTML = `
+        <h2>${filmeDestaque.titulo}</h2>
+
+        <p>${filmeDestaque.descricao ?? "Filme em destaque no MovieFlix."}</p>
+
+        <p>
+            ⭐ ${filmeDestaque.nota ?? 0}/10
+            • 📅 ${filmeDestaque.anoLancamento ?? ""}
+            • 🎭 ${filmeDestaque.genero ?? ""}
+        </p>
+
+        <button class="btn-explorar" onclick="verDetalhes(${filmeDestaque.id})">
+            ▶ Ver detalhes
+        </button>
+    `;
+}
+
 function verDetalhes(id) {
     window.location.href = `detalhes.html?id=${id}`;
 }
 
-// EVENTOS
 pesquisa.addEventListener("input", carregarFilmes);
 filtroGenero.addEventListener("change", carregarFilmes);
 
-// CARREGAR AO ABRIR
 carregarFilmes();

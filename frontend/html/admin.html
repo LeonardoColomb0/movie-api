@@ -1,16 +1,145 @@
-<h1>🎬 MovieFlix</h1>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieFlix - Admin</title>
 
-<input type="text" id="pesquisa" placeholder="Pesquisar filme...">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
 
-<select id="filtroGenero">
-  <option value="">Todos os gêneros</option>
-  <option value="Ação">Ação</option>
-  <option value="Drama">Drama</option>
-  <option value="Comédia">Comédia</option>
-</select>
+<header class="navbar">
+    <h1 class="logo">🎬 MovieFlix Admin</h1>
 
-<div id="listaFilmes"></div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="admin.html">Administrador</a>
+    </nav>
+</header>
 
-<script src="script-cliente.js"></script>
-<script src="script-cliente.js"></script>
-<script src="script.js"></script>
+<div class="container">
+
+    <h2>Cadastrar Filme</h2>
+
+    <form id="filmeForm">
+
+        <input type="text" id="titulo" placeholder="Título" required>
+
+        <textarea
+            id="descricao"
+            placeholder="Descrição"
+        ></textarea>
+
+        <select id="genero">
+            <option value="Outro">Selecione o gênero</option>
+
+            <option value="Ação">Ação</option>
+            <option value="Aventura">Aventura</option>
+            <option value="Comédia">Comédia</option>
+            <option value="Drama">Drama</option>
+            <option value="Ficção">Ficção</option>
+            <option value="Terror">Terror</option>
+            <option value="Romance">Romance</option>
+            <option value="Suspense">Suspense</option>
+            <option value="Animação">Animação</option>
+            <option value="Documentário">Documentário</option>
+            <option value="Outro">Outro</option>
+        </select>
+
+        <input
+            type="text"
+            id="diretor"
+            placeholder="Diretor"
+        >
+
+        <input
+            type="text"
+            id="imagem"
+            placeholder="URL do Poster"
+        >
+
+        <input
+            type="text"
+            id="banner"
+            placeholder="URL do Banner"
+        >
+
+        <input
+            type="number"
+            id="anoLancamento"
+            placeholder="Ano"
+        >
+
+        <input
+            type="number"
+            id="duracao"
+            placeholder="Duração (min)"
+        >
+
+        <input
+            type="number"
+            id="nota"
+            placeholder="Nota"
+            min="0"
+            max="10"
+            step="0.1"
+        >
+
+        <div class="botoes">
+
+            <button
+                type="button"
+                id="buscarTmdb"
+                class="btn-secundario"
+            >
+                🔍 Buscar TMDB
+            </button>
+
+            <button
+                type="submit"
+                class="btn-principal"
+            >
+                💾 Salvar Filme
+            </button>
+
+        </div>
+
+    </form>
+
+    <hr>
+
+    <h2>Filmes cadastrados</h2>
+
+    <input
+        type="text"
+        id="pesquisa"
+        placeholder="Pesquisar..."
+    >
+
+    <select id="filtroGenero">
+
+        <option value="">Todos os gêneros</option>
+
+        <option>Ação</option>
+        <option>Aventura</option>
+        <option>Comédia</option>
+        <option>Drama</option>
+        <option>Ficção</option>
+        <option>Terror</option>
+        <option>Romance</option>
+        <option>Suspense</option>
+        <option>Animação</option>
+        <option>Documentário</option>
+        <option>Outro</option>
+
+    </select>
+
+    <div id="listaFilmes"></div>
+
+</div>
+
+<script src="../javascript/admin.js"></script>
+
+</body>
+</html>

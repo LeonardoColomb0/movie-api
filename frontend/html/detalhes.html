@@ -3,85 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MovieFlix</title>
-
-    <link rel="stylesheet" href="style.css">
+    <title>Detalhes do Filme</title>
+    <link rel="stylesheet" href="../css/detalhes.css">
 </head>
 <body>
 
-    <div class="container">
+<header class="navbar">
+    <h1 class="logo">🎬 MovieFlix</h1>
+    <a href="index.html">← Voltar</a>
+</header>
 
-        <h1>🎬 MovieFlix</h1>
+<main id="detalhesFilme"></main>
 
-        <form id="filmeForm">
-
-            <h2>Cadastrar Filme</h2>
-
-            <input type="text" id="titulo" placeholder="Título" required>
-
-            <input type="text" id="descricao" placeholder="Descrição">
-
-            <select id="genero">
-    <option value="">Selecione o gênero</option>
-    <option value="Ação">Ação</option>
-    <option value="Aventura">Aventura</option>
-    <option value="Comédia">Comédia</option>
-    <option value="Drama">Drama</option>
-    <option value="Ficção">Ficção</option>
-    <option value="Terror">Terror</option>
-    <option value="Romance">Romance</option>
-    <option value="Suspense">Suspense</option>
-    <option value="Animação">Animação</option>
-    <option value="Documentário">Documentário</option>
-    <option value="Outro">Outro</option>
-</select>
-
-            <input type="text" id="diretor" placeholder="Diretor">
-            
-            <input type="text" id="imagem" placeholder="URL da imagem do filme">
-
-            <input type="number" id="anoLancamento" placeholder="Ano de Lançamento">
-
-            <input type="number" id="duracao" placeholder="Duração (minutos)">
-
-            <input type="number" step="any" id="nota" placeholder="Nota">
-
-            <button type="submit">
-                💾 Salvar Filme
-            </button>
-
-        </form>
-
-        <h2>Filmes cadastrados</h2>
-
-<input
-    type="text"
-    id="pesquisa"
-    placeholder="🔍 Pesquisar filme..."
->
-<button type="button" id="buscarTmdb">
-    🔍 Buscar informações
-</button>
-<select id="filtroGenero">
-    <option value="">Todos os gêneros</option>
-    <option value="Ação">Ação</option>
-    <option value="Aventura">Aventura</option>
-    <option value="Comédia">Comédia</option>
-    <option value="Drama">Drama</option>
-    <option value="Ficção">Ficção</option>
-    <option value="Terror">Terror</option>
-    <option value="Romance">Romance</option>
-    <option value="Suspense">Suspense</option>
-    <option value="Animação">Animação</option>
-    <option value="Documentário">Documentário</option>
-    <option value="Outro">Outro</option>
-</select>
-<div id="listaFilmes"></div>
-
-    </div>
-
-    <script src="script.js"></script>
-
+<script src="../javascript/detalhes.js"></script>
 </body>
 </html>
-

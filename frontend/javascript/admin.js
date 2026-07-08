@@ -5,21 +5,22 @@ const pesquisa = document.getElementById("pesquisa");
 const filtroGenero = document.getElementById("filtroGenero");
 const botaoBuscarTmdb = document.getElementById("buscarTmdb");
 
-const API_KEY_TMDB = "2690200ad3d3b02589ee559ee5d33bdb";
+const API_KEY_TMDB = "SUA_CHAVE_TMDB_AQUI";
 
 // CADASTRAR OU EDITAR
 formulario.addEventListener("submit", async function (event) {
     event.preventDefault();
+
     let nota = null;
 
-if (document.getElementById("nota").value !== "") {
-    nota = Number(document.getElementById("nota").value);
+    if (document.getElementById("nota").value !== "") {
+        nota = Number(document.getElementById("nota").value);
 
-    if (nota < 0 || nota > 10) {
-        alert("Valor inválido! A nota deve ser entre 0 e 10.");
-        return;
+        if (nota < 0 || nota > 10) {
+            alert("Valor inválido! A nota deve ser entre 0 e 10.");
+            return;
+        }
     }
-}
 
     const filme = {
         titulo: document.getElementById("titulo").value || "",
@@ -27,6 +28,7 @@ if (document.getElementById("nota").value !== "") {
         genero: document.getElementById("genero").value || "Outro",
         diretor: document.getElementById("diretor").value || "",
         imagem: document.getElementById("imagem").value || "",
+        banner: document.getElementById("banner").value || "",
         anoLancamento: document.getElementById("anoLancamento").value
             ? Number(document.getElementById("anoLancamento").value)
             : null,
@@ -34,7 +36,6 @@ if (document.getElementById("nota").value !== "") {
             ? Number(document.getElementById("duracao").value)
             : null,
         nota: nota
-            
     };
 
     const url = filmeEditando
@@ -108,12 +109,7 @@ async function carregarFilmes() {
                 <p><strong>Diretor:</strong> ${filme.diretor ?? ""}</p>
                 <p><strong>Ano:</strong> ${filme.anoLancamento ?? ""}</p>
                 <p><strong>Duração:</strong> ${filme.duracao ?? ""} min</p>
-
-                <p>
-                    <strong>Avaliação:</strong><br>
-                    ${"⭐".repeat(Math.max(1, Math.round((filme.nota ?? 0) / 2)))}
-                    (${filme.nota ?? 0}/10)
-                </p>
+                <p><strong>Nota:</strong> ${filme.nota ?? 0}/10</p>
 
                 <div class="acoes">
                     <button class="btn-editar" onclick="editarFilme(${filme.id})">
@@ -139,6 +135,7 @@ async function editarFilme(id) {
     document.getElementById("genero").value = filme.genero ?? "Outro";
     document.getElementById("diretor").value = filme.diretor ?? "";
     document.getElementById("imagem").value = filme.imagem ?? "";
+    document.getElementById("banner").value = filme.banner ?? "";
     document.getElementById("anoLancamento").value = filme.anoLancamento ?? "";
     document.getElementById("duracao").value = filme.duracao ?? "";
     document.getElementById("nota").value = filme.nota ?? "";
@@ -207,6 +204,10 @@ botaoBuscarTmdb.addEventListener("click", async function () {
 
     document.getElementById("imagem").value = filme.poster_path
         ? `https://image.tmdb.org/t/p/w500${filme.poster_path}`
+        : "";
+
+    document.getElementById("banner").value = filme.backdrop_path
+        ? `https://image.tmdb.org/t/p/original${filme.backdrop_path}`
         : "";
 
     alert("Informações carregadas!");
