@@ -5,21 +5,19 @@ const pesquisa = document.getElementById("pesquisa");
 const filtroGenero = document.getElementById("filtroGenero");
 const botaoBuscarTmdb = document.getElementById("buscarTmdb");
 
-const API_KEY_TMDB = "SUA_CHAVE_TMDB_AQUI";
+const API_FILMES = "http://localhost:8080/filmes";
+const API_TMDB = "http://localhost:8080/tmdb";
 
 // CADASTRAR OU EDITAR
 formulario.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    let nota = null;
+    const notaInput = document.getElementById("nota").value;
+    let nota = notaInput !== "" ? Number(notaInput) : null;
 
-    if (document.getElementById("nota").value !== "") {
-        nota = Number(document.getElementById("nota").value);
-
-        if (nota < 0 || nota > 10) {
-            alert("Valor inválido! A nota deve ser entre 0 e 10.");
-            return;
-        }
+    if (nota !== null && (nota < 0 || nota > 10)) {
+        alert("Valor inválido! A nota deve ser entre 0 e 10.");
+        return;
     }
 
     const filme = {
@@ -38,10 +36,7 @@ formulario.addEventListener("submit", async function (event) {
         nota: nota
     };
 
-    const url = filmeEditando
-        ? `http://localhost:8080/filmes/${filmeEditando}`
-        : "http://localhost:8080/filmes";
-
+    const url = filmeEditando ? `${API_FILMES}/${filmeEditando}` : API_FILMES;
     const metodo = filmeEditando ? "PUT" : "POST";
 
     const resposta = await fetch(url, {
@@ -54,7 +49,6 @@ formulario.addEventListener("submit", async function (event) {
 
     if (resposta.ok) {
         alert(filmeEditando ? "Filme atualizado!" : "Filme cadastrado!");
-
         formulario.reset();
         filmeEditando = null;
         carregarFilmes();
@@ -66,7 +60,7 @@ formulario.addEventListener("submit", async function (event) {
 
 // LISTAR FILMES
 async function carregarFilmes() {
-    const resposta = await fetch("http://localhost:8080/filmes");
+    const resposta = await fetch(API_FILMES);
     const filmes = await resposta.json();
 
     const textoPesquisa = pesquisa.value.toLowerCase();
@@ -91,7 +85,7 @@ async function carregarFilmes() {
         lista.innerHTML += `
             <div class="card">
                 <img
-                    src="${filme.imagem || 'https://placehold.co/300x450?text=Sem+Imagem'}"
+                    src="${filme.imagem || '../img/poster-default.png'}"
                     alt="${filme.titulo}"
                     style="
                         width:100%;
@@ -127,7 +121,7 @@ async function carregarFilmes() {
 
 // EDITAR
 async function editarFilme(id) {
-    const resposta = await fetch(`http://localhost:8080/filmes/${id}`);
+    const resposta = await fetch(`${API_FILMES}/${id}`);
     const filme = await resposta.json();
 
     document.getElementById("titulo").value = filme.titulo ?? "";
@@ -154,7 +148,7 @@ async function deletarFilme(id) {
 
     if (!confirmar) return;
 
-    const resposta = await fetch(`http://localhost:8080/filmes/${id}`, {
+    const resposta = await fetch(`${API_FILMES}/${id}`, {
         method: "DELETE"
     });
 
@@ -166,7 +160,7 @@ async function deletarFilme(id) {
     }
 }
 
-// BUSCAR NA TMDB
+// BUSCAR NA TMDB PELO BACKEND
 botaoBuscarTmdb.addEventListener("click", async function () {
     const titulo = document.getElementById("titulo").value;
 
@@ -175,42 +169,26 @@ botaoBuscarTmdb.addEventListener("click", async function () {
         return;
     }
 
-    const resposta = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY_TMDB}&language=pt-BR&query=${encodeURIComponent(titulo)}`
-    );
+    const resposta = await fetch(`${API_TMDB}?titulo=${encodeURIComponent(titulo)}`);
 
-    const dados = await resposta.json();
-
-    if (!dados.results || dados.results.length === 0) {
-        alert("Filme não encontrado.");
+    if (!resposta.ok) {
+        alert("Filme não encontrado na TMDB.");
         return;
     }
 
-    const filme = dados.results[0];
+    const filme = await resposta.json();
 
-    document.getElementById("titulo").value = filme.title || "";
-    document.getElementById("descricao").value = filme.overview || "";
-    document.getElementById("genero").value = "Outro";
+    document.getElementById("titulo").value = filme.titulo ?? "";
+    document.getElementById("descricao").value = filme.descricao ?? "";
+    document.getElementById("genero").value = filme.genero || "Outro";
     document.getElementById("diretor").value = "";
     document.getElementById("duracao").value = "";
+    document.getElementById("anoLancamento").value = filme.anoLancamento ?? "";
+    document.getElementById("nota").value = filme.nota ? filme.nota.toFixed(1) : "";
+    document.getElementById("imagem").value = filme.imagem ?? "";
+    document.getElementById("banner").value = filme.banner ?? "";
 
-    document.getElementById("anoLancamento").value = filme.release_date
-        ? filme.release_date.substring(0, 4)
-        : "";
-
-    document.getElementById("nota").value = filme.vote_average
-        ? filme.vote_average.toFixed(1)
-        : "";
-
-    document.getElementById("imagem").value = filme.poster_path
-        ? `https://image.tmdb.org/t/p/w500${filme.poster_path}`
-        : "";
-
-    document.getElementById("banner").value = filme.backdrop_path
-        ? `https://image.tmdb.org/t/p/original${filme.backdrop_path}`
-        : "";
-
-    alert("Informações carregadas!");
+    alert("Informações da TMDB carregadas!");
 });
 
 // EVENTOS

@@ -15,16 +15,16 @@ public class Filme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, length = 200)
     private String titulo;
 
     @Column(columnDefinition = "TEXT")
     private String descricao;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, length = 100)
     private String genero;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, length = 150)
     private String diretor;
 
     private Integer anoLancamento;
@@ -35,9 +35,9 @@ public class Filme {
 
     @Column(columnDefinition = "TEXT")
     private String imagem;
-    
+
     @Column(columnDefinition = "TEXT")
-private String banner;
+    private String banner;
 
     public Filme() {
     }

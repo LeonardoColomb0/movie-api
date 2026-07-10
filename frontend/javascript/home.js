@@ -24,10 +24,12 @@ async function carregarFilmes() {
     lista.innerHTML = "";
 
     filmesFiltrados.forEach(filme => {
+        const imagemPoster = filme.imagem || "../img/poster-default.png";
+
         lista.innerHTML += `
             <div class="card" onclick="verDetalhes(${filme.id})">
                 <img 
-                    src="${filme.imagem || 'https://placehold.co/300x450?text=Sem+Imagem'}" 
+                    src="${imagemPoster}" 
                     alt="${filme.titulo}"
                 >
 
@@ -52,6 +54,8 @@ function carregarBanner(filmes) {
         return (filme.nota ?? 0) > (maior.nota ?? 0) ? filme : maior;
     });
 
+    const imagemBanner = filmeDestaque.banner || "../img/banner-default.jpg";
+
     const hero = document.querySelector(".hero");
 
     hero.style.backgroundImage = `
@@ -61,7 +65,7 @@ function carregarBanner(filmes) {
             rgba(0,0,0,.75),
             rgba(0,0,0,.35)
         ),
-        url('${filmeDestaque.banner || filmeDestaque.imagem || "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1600"}')
+        url('${imagemBanner}')
     `;
 
     hero.style.backgroundSize = "cover";

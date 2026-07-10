@@ -17,7 +17,6 @@ import com.leonardo.movie_api.entity.Filme;
 import com.leonardo.movie_api.service.FilmeService;
 
 @CrossOrigin(origins = "http://127.0.0.1:5500")
-
 @RestController
 @RequestMapping("/filmes")
 public class FilmeController {
@@ -28,13 +27,11 @@ public class FilmeController {
         this.filmeService = filmeService;
     }
 
-    // LISTAR TODOS
     @GetMapping
     public List<Filme> listarTodos() {
         return filmeService.listarTodos();
     }
 
-    // BUSCAR POR ID
     @GetMapping("/{id}")
     public ResponseEntity<Filme> buscarPorId(@PathVariable Long id) {
         Filme filme = filmeService.buscarPorId(id);
@@ -46,20 +43,23 @@ public class FilmeController {
         return ResponseEntity.ok(filme);
     }
 
-    // CRIAR FILME
     @PostMapping
-public ResponseEntity<Filme> salvar(@RequestBody Filme filme) {
-    Filme filmeSalvo = filmeService.salvar(filme);
-    return ResponseEntity.ok(filmeSalvo);
-}
-
-    // ATUALIZAR FILME
-    @PutMapping("/{id}")
-    public Filme atualizar(@PathVariable Long id, @RequestBody Filme filme) {
-        return filmeService.atualizar(id, filme);
+    public ResponseEntity<Filme> salvar(@RequestBody Filme filme) {
+        Filme filmeSalvo = filmeService.salvar(filme);
+        return ResponseEntity.ok(filmeSalvo);
     }
 
-    // DELETAR FILME
+    @PutMapping("/{id}")
+    public ResponseEntity<Filme> atualizar(@PathVariable Long id, @RequestBody Filme filme) {
+        Filme filmeAtualizado = filmeService.atualizar(id, filme);
+
+        if (filmeAtualizado == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(filmeAtualizado);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         filmeService.deletar(id);

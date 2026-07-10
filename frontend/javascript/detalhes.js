@@ -5,29 +5,39 @@ async function carregarDetalhes() {
     const resposta = await fetch(`http://localhost:8080/filmes/${id}`);
     const filme = await resposta.json();
 
+    const poster = filme.imagem || "../img/poster-default.png";
+    const banner = filme.banner || "../img/banner-default.jpg";
+
     document.getElementById("detalhesFilme").innerHTML = `
-        <section class="detalhes-container">
-            <img
-                class="poster-detalhes"
-                src="${filme.imagem || 'https://placehold.co/300x450?text=Sem+Imagem'}"
-                alt="${filme.titulo}"
-            >
+        <section 
+            class="hero-detalhes" 
+            style="background-image: url('${banner}')"
+        >
+            <div class="detalhes-container">
+                <img
+                    class="poster-detalhes"
+                    src="${poster}"
+                    alt="${filme.titulo}"
+                >
 
-            <div class="info-detalhes">
-                <h1>${filme.titulo}</h1>
+                <div class="info-detalhes">
+                    <h1>${filme.titulo}</h1>
 
-                <p class="nota">⭐ ${filme.nota ?? 0}/10</p>
+                    <p class="nota">
+                        ⭐ ${filme.nota ?? 0}/10 
+                        • 📅 ${filme.anoLancamento ?? ""}
+                        • 🎭 ${filme.genero ?? ""}
+                    </p>
 
-                <p>${filme.descricao ?? "Sem descrição disponível."}</p>
+                    <p>${filme.descricao ?? "Sem descrição disponível."}</p>
 
-                <p><strong>🎭 Gênero:</strong> ${filme.genero ?? ""}</p>
-                <p><strong>🎬 Diretor:</strong> ${filme.diretor ?? ""}</p>
-                <p><strong>📅 Ano:</strong> ${filme.anoLancamento ?? ""}</p>
-                <p><strong>⏱ Duração:</strong> ${filme.duracao ?? ""} min</p>
+                    <p><strong>🎬 Diretor:</strong> ${filme.diretor ?? "Não informado"}</p>
+                    <p><strong>⏱ Duração:</strong> ${filme.duracao ?? ""} min</p>
 
-                <button class="btn-trailer">
-                    ▶ Assistir Trailer
-                </button>
+                    <button class="btn-trailer">
+                        ▶ Assistir Trailer
+                    </button>
+                </div>
             </div>
         </section>
     `;

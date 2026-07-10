@@ -16,51 +16,43 @@ public class FilmeService {
         this.filmeRepository = filmeRepository;
     }
 
-    // LISTAR TODOS
     public List<Filme> listarTodos() {
         return filmeRepository.findAll();
     }
 
-    // BUSCAR POR ID
     public Filme buscarPorId(Long id) {
-        return filmeRepository.findById(id)
-                .orElse(null);
+        return filmeRepository.findById(id).orElse(null);
     }
 
-    // SALVAR
     public Filme salvar(Filme filme) {
         return filmeRepository.save(filme);
     }
 
-    // ATUALIZAR
-public Filme atualizar(Long id, Filme novoFilme) {
-    
-    Filme filme = filmeRepository.findById(id)
-            .orElse(null);
+    public Filme atualizar(Long id, Filme novoFilme) {
+        Filme filme = filmeRepository.findById(id).orElse(null);
 
-    if (filme == null) {
-        return null;
+        if (filme == null) {
+            return null;
+        }
+
+        filme.setTitulo(novoFilme.getTitulo());
+        filme.setDescricao(novoFilme.getDescricao());
+        filme.setGenero(novoFilme.getGenero());
+        filme.setDiretor(novoFilme.getDiretor());
+        filme.setAnoLancamento(novoFilme.getAnoLancamento());
+        filme.setDuracao(novoFilme.getDuracao());
+        filme.setNota(novoFilme.getNota());
+        filme.setImagem(novoFilme.getImagem());
+        filme.setBanner(novoFilme.getBanner());
+
+        return filmeRepository.save(filme);
     }
 
-    filme.setTitulo(novoFilme.getTitulo());
-    filme.setDescricao(novoFilme.getDescricao());
-    filme.setGenero(novoFilme.getGenero());
-    filme.setDiretor(novoFilme.getDiretor());
-    filme.setAnoLancamento(novoFilme.getAnoLancamento());
-    filme.setDuracao(novoFilme.getDuracao());
-    filme.setNota(novoFilme.getNota());
-    filme.setImagem(novoFilme.getImagem());
-
-    return filmeRepository.save(filme);
-}
-    // DELETAR
     public void deletar(Long id) {
-        Filme filme = filmeRepository.findById(id)
-                .orElse(null);
+        Filme filme = filmeRepository.findById(id).orElse(null);
 
         if (filme != null) {
             filmeRepository.delete(filme);
         }
     }
-    
 }
