@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - MovieFlix</title>
+
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+
+<main class="pagina-login">
+
+    <a href="index.html" class="voltar-home">
+        ← Voltar para Home
+    </a>
+
+    <section class="login-card">
+
+        <div class="marca">
+            <h1>🎬 MovieFlix</h1>
+            <p>Entre para acessar o catálogo.</p>
+        </div>
+
+        <form id="loginForm">
+
+            <div class="campo">
+                <label for="email">E-mail</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Digite seu e-mail"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <div class="campo">
+                <label for="senha">Senha</label>
+
+                <div class="campo-senha">
+                    <input
+                        type="password"
+                        id="senha"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        id="mostrarSenha"
+                        class="mostrar-senha"
+                        aria-label="Mostrar ou ocultar senha"
+                    >
+                        👁
+                    </button>
+                </div>
+            </div>
+
+            <p id="mensagemErro" class="mensagem-erro"></p>
+
+            <button type="submit" class="btn-entrar">
+                Entrar
+            </button>
+
+        </form>
+
+        <div class="area-admin">
+            <p>Você é administrador?</p>
+
+            <button
+                type="button"
+                id="abrirModalAdmin"
+                class="btn-admin"
+            >
+                Entrar como administrador
+            </button>
+        </div>
+
+    </section>
+
+</main>
+
+<div id="modalAdmin" class="modal-admin">
+
+    <div class="modal-conteudo">
+
+        <button
+            type="button"
+            id="fecharModalAdmin"
+            class="fechar-modal"
+            aria-label="Fechar"
+        >
+            ×
+        </button>
+
+        <div class="modal-marca">
+            <h2>🎬 Área Administrativa</h2>
+            <p>Informe as credenciais de administrador.</p>
+        </div>
+
+        <form id="adminLoginForm">
+
+            <div class="campo">
+                <label for="adminEmail">E-mail administrativo</label>
+
+                <input
+                    type="email"
+                    id="adminEmail"
+                    placeholder="admin@movieflix.com"
+                    autocomplete="username"
+                    required
+                >
+            </div>
+
+            <div class="campo">
+                <label for="adminSenha">Senha</label>
+
+                <div class="campo-senha">
+                    <input
+                        type="password"
+                        id="adminSenha"
+                        placeholder="Digite a senha"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        id="mostrarSenhaAdmin"
+                        class="mostrar-senha"
+                        aria-label="Mostrar ou ocultar senha"
+                    >
+                        👁
+                    </button>
+                </div>
+            </div>
+
+            <p
+                id="mensagemErroAdmin"
+                class="mensagem-erro"
+            ></p>
+
+            <button
+                type="submit"
+                class="btn-entrar"
+            >
+                Entrar no painel
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="../javascript/login.js"></script>
+
+</body>
+</html>

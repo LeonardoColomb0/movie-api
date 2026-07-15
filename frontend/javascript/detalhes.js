@@ -2,45 +2,100 @@ const parametros = new URLSearchParams(window.location.search);
 const id = parametros.get("id");
 
 async function carregarDetalhes() {
-    const resposta = await fetch(`http://localhost:8080/filmes/${id}`);
-    const filme = await resposta.json();
+    try {
+        const resposta = await fetch(`http://localhost:8080/filmes/${id}`);
 
-    const poster = filme.imagem || "../img/poster-default.png";
-    const banner = filme.banner || "../img/banner-default.jpg";
+        if (!resposta.ok) {
+            throw new Error("Filme não encontrado.");
+        }
 
-    document.getElementById("detalhesFilme").innerHTML = `
-        <section 
-            class="hero-detalhes" 
-            style="background-image: url('${banner}')"
-        >
-            <div class="detalhes-container">
+        const filme = await resposta.json();
+
+        const poster = filme.imagem || "../img/poster-default.png";
+        const banner = filme.banner || "../img/banner-default.jpg";
+
+        let tituloOuLogo;
+
+        if (filme.logo) {
+            tituloOuLogo = `
                 <img
-                    class="poster-detalhes"
-                    src="${poster}"
+                    src="${filme.logo}"
                     alt="${filme.titulo}"
+                    class="logo-filme-detalhes"
                 >
+            `;
+        } else {
+            tituloOuLogo = `
+                <h1>${filme.titulo}</h1>
+            `;
+        }
 
-                <div class="info-detalhes">
-                    <h1>${filme.titulo}</h1>
+        document.getElementById("detalhesFilme").innerHTML = `
+            <section
+                class="hero-detalhes"
+                style="background-image: url('${banner}')"
+            >
+                <div class="detalhes-container">
 
-                    <p class="nota">
-                        ⭐ ${filme.nota ?? 0}/10 
-                        • 📅 ${filme.anoLancamento ?? ""}
-                        • 🎭 ${filme.genero ?? ""}
-                    </p>
+                    <img
+                        class="poster-detalhes"
+                        src="${poster}"
+                        alt="${filme.titulo}"
+                    >
 
-                    <p>${filme.descricao ?? "Sem descrição disponível."}</p>
+                    <div class="info-detalhes">
 
-                    <p><strong>🎬 Diretor:</strong> ${filme.diretor ?? "Não informado"}</p>
-                    <p><strong>⏱ Duração:</strong> ${filme.duracao ?? ""} min</p>
+                        ${tituloOuLogo}
 
-                    <button class="btn-trailer">
-                        ▶ Assistir Trailer
-                    </button>
+                        <p class="nota">
+                            ⭐ ${filme.nota ?? 0}/10
+                            • 📅 ${filme.anoLancamento ?? ""}
+                            • 🎭 ${filme.genero ?? ""}
+                        </p>
+
+                        <p>
+                            ${filme.descricao ?? "Sem descrição disponível."}
+                        </p>
+
+                        <p>
+                            <strong>🎬 Diretor:</strong>
+                            ${filme.diretor || "Não informado"}
+                        </p>
+
+                        <p>
+                            <strong>⏱ Duração:</strong>
+                            ${filme.duracao ? `${filme.duracao} min` : "Não informada"}
+                        </p>
+
+                        <button
+    class="btn-trailer"
+    onclick="abrirTrailer('${filme.trailer ?? ""}')"
+>
+    ▶ Assistir Trailer
+</button>
+
+                    </div>
+
                 </div>
-            </div>
-        </section>
-    `;
+            </section>
+        `;
+    } catch (erro) {
+        console.error(erro);
+
+        document.getElementById("detalhesFilme").innerHTML = `
+            <p class="mensagem-erro">
+                Não foi possível carregar os detalhes do filme.
+            </p>
+        `;
+    }
+}
+function abrirTrailer(url) {
+    if (!url) {
+        alert("Trailer não disponível para este filme.");
+        return;
+    }
+
+    window.open(url, "_blank");
 }
 
 carregarDetalhes();

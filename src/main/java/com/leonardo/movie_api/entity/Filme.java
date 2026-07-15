@@ -39,6 +39,12 @@ public class Filme {
     @Column(columnDefinition = "TEXT")
     private String banner;
 
+    @Column(columnDefinition = "TEXT")
+    private String logo;
+
+    @Column(columnDefinition = "TEXT")
+    private String trailer;
+
     public Filme() {
     }
 
@@ -120,5 +126,21 @@ public class Filme {
 
     public void setBanner(String banner) {
         this.banner = banner;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getTrailer() {
+        return trailer;
+    }
+
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
     }
 }

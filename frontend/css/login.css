@@ -1,0 +1,384 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        "Segoe UI",
+        Inter,
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            rgba(8, 5, 20, 0.82),
+            rgba(8, 5, 20, 0.94)
+        ),
+        url("../img/banner-default.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    color: white;
+}
+
+body.modal-aberto {
+    overflow: hidden;
+}
+
+.pagina-login {
+    position: relative;
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+}
+
+.voltar-home {
+    position: absolute;
+    top: 28px;
+    left: 35px;
+
+    color: white;
+
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+
+    opacity: 0.85;
+    transition: 0.25s;
+}
+
+.voltar-home:hover {
+    color: #c74cff;
+    opacity: 1;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 42px;
+
+    background: rgba(18, 15, 34, 0.88);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 22px;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.55);
+
+    backdrop-filter: blur(14px);
+}
+
+.marca {
+    margin-bottom: 34px;
+    text-align: center;
+}
+
+.marca h1 {
+    color: #b62cff;
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.marca p,
+.modal-marca p {
+    color: #c8c5d1;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.campo {
+    margin-bottom: 21px;
+}
+
+.campo label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #e8e6ed;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.campo input {
+    width: 100%;
+    height: 50px;
+
+    padding: 0 17px;
+
+    background: rgba(255, 255, 255, 0.07);
+    color: white;
+
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 12px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    transition: 0.25s;
+}
+
+.campo input::placeholder {
+    color: #858190;
+}
+
+.campo input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #b62cff;
+
+    box-shadow:
+        0 0 0 3px rgba(182, 44, 255, 0.16);
+}
+
+.campo-senha {
+    position: relative;
+}
+
+.campo-senha input {
+    padding-right: 55px;
+}
+
+.mostrar-senha {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+
+    transform: translateY(-50%);
+
+    width: 36px;
+    height: 36px;
+
+    background: transparent;
+    color: white;
+
+    border: none;
+
+    font-size: 18px;
+
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.mostrar-senha:hover {
+    opacity: 1;
+}
+
+.mensagem-erro {
+    min-height: 20px;
+
+    margin: -5px 0 14px;
+
+    color: #ff7070;
+
+    font-size: 14px;
+    text-align: center;
+}
+
+.btn-entrar {
+    width: 100%;
+    height: 52px;
+
+    margin-top: 5px;
+
+    background: linear-gradient(
+        135deg,
+        #9d22ee,
+        #ce3cff
+    );
+
+    color: white;
+
+    border: none;
+    border-radius: 13px;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.btn-entrar:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(182, 44, 255, 0.35);
+}
+
+/* ================= ADMIN ================= */
+
+.area-admin {
+    margin-top: 28px;
+    padding-top: 24px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+
+    text-align: center;
+}
+
+.area-admin p {
+    margin-bottom: 12px;
+
+    color: #aaa6b5;
+
+    font-size: 13px;
+}
+
+.btn-admin {
+    background: transparent;
+    color: #c95cff;
+
+    border: none;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.btn-admin:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* ================= MODAL ================= */
+
+.modal-admin {
+    position: fixed;
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+
+    background: rgba(0, 0, 0, 0.78);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.25s,
+        visibility 0.25s;
+}
+
+.modal-admin.ativo {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-conteudo {
+    position: relative;
+
+    width: 100%;
+    max-width: 430px;
+
+    padding: 42px;
+
+    background: #151224;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 22px;
+
+    box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.7);
+
+    transform: translateY(18px) scale(0.97);
+
+    transition: transform 0.25s;
+}
+
+.modal-admin.ativo .modal-conteudo {
+    transform: translateY(0) scale(1);
+}
+
+.fechar-modal {
+    position: absolute;
+    top: 13px;
+    right: 16px;
+
+    width: 36px;
+    height: 36px;
+
+    background: transparent;
+    color: white;
+
+    border: none;
+    border-radius: 50%;
+
+    font-size: 30px;
+    line-height: 1;
+
+    cursor: pointer;
+    opacity: 0.65;
+
+    transition: 0.2s;
+}
+
+.fechar-modal:hover {
+    background: rgba(255, 255, 255, 0.08);
+
+    opacity: 1;
+}
+
+.modal-marca {
+    margin-bottom: 30px;
+
+    text-align: center;
+}
+
+.modal-marca h2 {
+    margin-bottom: 9px;
+
+    color: #c74cff;
+
+    font-size: 26px;
+}
+
+/* ================= RESPONSIVO ================= */
+
+@media (max-width: 520px) {
+    .pagina-login {
+        padding: 20px;
+    }
+
+    .voltar-home {
+        top: 20px;
+        left: 20px;
+    }
+
+    .login-card,
+    .modal-conteudo {
+        padding: 34px 24px;
+    }
+
+    .marca h1 {
+        font-size: 29px;
+    }
+
+    .modal-marca h2 {
+        font-size: 23px;
+    }
+}

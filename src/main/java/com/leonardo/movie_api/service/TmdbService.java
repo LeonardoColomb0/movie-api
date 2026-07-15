@@ -25,7 +25,10 @@ public class TmdbService {
 
     public TmdbFilmeDTO buscarFilmePorTitulo(String titulo) {
 
-        // 1 - Pesquisa o filme
+        // ==========================
+        // 1 - PESQUISA O FILME
+        // ==========================
+
         Map respostaBusca = restClient.get()
                 .uri(apiUrl + "/search/movie?query=" + titulo + "&language=pt-BR")
                 .header("Authorization", "Bearer " + token)
@@ -42,10 +45,20 @@ public class TmdbService {
 
         Integer idFilme = (Integer) primeiroFilme.get("id");
 
-        String tituloFilme = (String) primeiroFilme.get("title");
-        String descricao = (String) primeiroFilme.get("overview");
+        // ==========================
+        // 2 - BUSCA DETALHES COMPLETOS
+        // ==========================
 
-        String dataLancamento = (String) primeiroFilme.get("release_date");
+        Map detalhes = restClient.get()
+                .uri(apiUrl + "/movie/" + idFilme + "?language=pt-BR")
+                .header("Authorization", "Bearer " + token)
+                .retrieve()
+                .body(Map.class);
+
+        String tituloFilme = (String) detalhes.get("title");
+        String descricao = (String) detalhes.get("overview");
+
+        String dataLancamento = (String) detalhes.get("release_date");
 
         Integer anoLancamento = null;
 
@@ -53,12 +66,25 @@ public class TmdbService {
             anoLancamento = Integer.parseInt(dataLancamento.substring(0, 4));
         }
 
-        Double nota = primeiroFilme.get("vote_average") != null
-                ? Double.parseDouble(primeiroFilme.get("vote_average").toString())
+        Double nota = detalhes.get("vote_average") != null
+                ? Double.parseDouble(detalhes.get("vote_average").toString())
                 : null;
 
-        String posterPath = (String) primeiroFilme.get("poster_path");
-        String bannerPath = (String) primeiroFilme.get("backdrop_path");
+        Integer duracao = detalhes.get("runtime") != null
+                ? Integer.parseInt(detalhes.get("runtime").toString())
+                : null;
+
+        String genero = "Outro";
+
+        List generos = (List) detalhes.get("genres");
+
+        if (generos != null && !generos.isEmpty()) {
+            Map primeiroGenero = (Map) generos.get(0);
+            genero = (String) primeiroGenero.get("name");
+        }
+
+        String posterPath = (String) detalhes.get("poster_path");
+        String bannerPath = (String) detalhes.get("backdrop_path");
 
         String imagem = posterPath != null
                 ? imageUrl + "/w500" + posterPath
@@ -68,9 +94,40 @@ public class TmdbService {
                 ? imageUrl + "/original" + bannerPath
                 : null;
 
-        // 2 - Busca as imagens do filme
+        // ==========================
+        // 3 - BUSCA O DIRETOR
+        // ==========================
+
+        Map creditos = restClient.get()
+                .uri(apiUrl + "/movie/" + idFilme + "/credits?language=pt-BR")
+                .header("Authorization", "Bearer " + token)
+                .retrieve()
+                .body(Map.class);
+
+        String diretor = "";
+
+        List equipe = (List) creditos.get("crew");
+
+        if (equipe != null && !equipe.isEmpty()) {
+            for (Object obj : equipe) {
+                Map pessoa = (Map) obj;
+
+                String cargo = (String) pessoa.get("job");
+
+                if ("Director".equals(cargo)) {
+                    diretor = (String) pessoa.get("name");
+                    break;
+                }
+            }
+        }
+
+        // ==========================
+        // 4 - BUSCA AS LOGOS
+        // ==========================
+
         Map imagens = restClient.get()
-                .uri(apiUrl + "/movie/" + idFilme + "/images")
+                .uri(apiUrl + "/movie/" + idFilme
+                        + "/images?include_image_language=pt,en,null")
                 .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .body(Map.class);
@@ -81,22 +138,88 @@ public class TmdbService {
 
         if (logos != null && !logos.isEmpty()) {
 
-            Map primeiroLogo = (Map) logos.get(0);
+            Map logoEscolhida = null;
 
-            String filePath = (String) primeiroLogo.get("file_path");
+            for (Object obj : logos) {
+                Map logoAtual = (Map) obj;
 
-            logo = imageUrl + "/original" + filePath;
+                String idioma = (String) logoAtual.get("iso_639_1");
+
+                if ("pt".equals(idioma)) {
+                    logoEscolhida = logoAtual;
+                    break;
+                }
+            }
+
+            if (logoEscolhida == null) {
+                for (Object obj : logos) {
+                    Map logoAtual = (Map) obj;
+
+                    String idioma = (String) logoAtual.get("iso_639_1");
+
+                    if ("en".equals(idioma)) {
+                        logoEscolhida = logoAtual;
+                        break;
+                    }
+                }
+            }
+
+            if (logoEscolhida == null) {
+                logoEscolhida = (Map) logos.get(0);
+            }
+
+            String filePath = (String) logoEscolhida.get("file_path");
+
+            if (filePath != null) {
+                logo = imageUrl + "/original" + filePath;
+            }
+        }
+
+        // ==========================
+        // 5 - BUSCA O TRAILER
+        // ==========================
+
+        Map videos = restClient.get()
+                .uri(apiUrl + "/movie/" + idFilme + "/videos?language=pt-BR")
+                .header("Authorization", "Bearer " + token)
+                .retrieve()
+                .body(Map.class);
+
+        String trailer = null;
+
+        List resultadosVideos = (List) videos.get("results");
+
+        if (resultadosVideos != null && !resultadosVideos.isEmpty()) {
+
+            for (Object obj : resultadosVideos) {
+                Map video = (Map) obj;
+
+                String site = (String) video.get("site");
+                String tipo = (String) video.get("type");
+                String chave = (String) video.get("key");
+
+                if ("YouTube".equals(site)
+                        && "Trailer".equals(tipo)
+                        && chave != null) {
+
+                    trailer = "https://www.youtube.com/watch?v=" + chave;
+                    break;
+                }
+            }
         }
 
         return new TmdbFilmeDTO(
                 tituloFilme,
                 descricao,
-                "",
+                genero,
+                diretor,
                 anoLancamento,
+                duracao,
                 nota,
                 imagem,
                 banner,
-                logo
+                logo,
+                trailer
         );
     }
 }

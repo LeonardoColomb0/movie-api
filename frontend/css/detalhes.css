@@ -72,7 +72,6 @@ body{
     rgba(0,0,0,.95),
     rgba(0,0,0,.65),
     rgba(0,0,0,.25));
-
 }
 
 .hero-detalhes::after{
@@ -87,7 +86,6 @@ body{
 }
 
 .detalhes-container{
-
     position:relative;
     z-index:2;
 
@@ -100,7 +98,6 @@ body{
 /* ================= POSTER ================= */
 
 .poster-detalhes{
-
     width:270px;
     height:400px;
 
@@ -111,69 +108,63 @@ body{
     box-shadow:0 15px 40px rgba(0,0,0,.55);
 }
 
+/* ================= LOGO ================= */
+
+.logo-filme-detalhes{
+    display:block;
+    width:auto;
+    max-width:260px;
+    max-height:90px;
+    object-fit:contain;
+    object-position:left center;
+    margin-bottom:20px;
+}
+
 /* ================= INFORMAÇÕES ================= */
 
 .info-detalhes{
-
     max-width:700px;
-
 }
 
 .info-detalhes h1{
-
     font-size:54px;
-
     margin-bottom:20px;
-
 }
 
 .info-detalhes p{
-
     font-size:18px;
-
     line-height:1.7;
-
     color:#d6d6d6;
-
     margin-bottom:14px;
-
 }
 
 .nota{
-
     color:#FFD54A;
     font-weight:bold;
-
 }
 
 /* ================= BOTÃO ================= */
 
 .btn-trailer{
-
     margin-top:18px;
 
     padding:14px 34px;
 
     border:none;
-
     border-radius:30px;
 
     background:white;
-
     color:#111;
 
     font-weight:bold;
-
     cursor:pointer;
 
     transition:.3s;
 }
 
 .btn-trailer:hover{
-
     background:#cb07fc;
     color:white;
-
 }
 
 /* ================= RESPONSIVO ================= */
@@ -181,29 +172,28 @@ body{
 @media(max-width:900px){
 
     .hero-detalhes{
-
         padding:110px 30px 40px;
     }
 
     .detalhes-container{
-
         flex-direction:column;
         align-items:center;
         text-align:center;
-
     }
 
     .poster-detalhes{
-
         width:220px;
         height:330px;
+    }
 
+    .logo-filme-detalhes{
+        max-width:220px;
+        max-height:80px;
+        margin-left:auto;
+        margin-right:auto;
     }
 
     .info-detalhes h1{
-
         font-size:38px;
-
     }
-
 }

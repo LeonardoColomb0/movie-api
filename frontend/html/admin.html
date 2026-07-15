@@ -7,15 +7,22 @@
 
     <link rel="stylesheet" href="../css/admin.css">
 </head>
+
 <body>
 
 <header class="navbar">
     <h1 class="logo">🎬 MovieFlix Admin</h1>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="admin.html">Administrador</a>
-    </nav>
+
+    <a href="index.html">Home</a>
+    <a href="admin.html">Administrador</a>
+
+    <button id="btnLogout">
+        Sair
+    </button>
+
+</nav>
 </header>
 
 <div class="container">
@@ -24,7 +31,12 @@
 
     <form id="filmeForm">
 
-        <input type="text" id="titulo" placeholder="Título" required>
+        <input
+            type="text"
+            id="titulo"
+            placeholder="Título"
+            required
+        >
 
         <textarea
             id="descricao"
@@ -33,7 +45,6 @@
 
         <select id="genero">
             <option value="Outro">Selecione o gênero</option>
-
             <option value="Ação">Ação</option>
             <option value="Aventura">Aventura</option>
             <option value="Comédia">Comédia</option>
@@ -63,6 +74,18 @@
             type="text"
             id="banner"
             placeholder="URL do Banner"
+        >
+
+        <input
+            type="text"
+            id="logo"
+            placeholder="URL da Logo"
+        >
+
+        <input
+            type="text"
+            id="trailer"
+            placeholder="URL do Trailer"
         >
 
         <input
@@ -118,21 +141,18 @@
     >
 
     <select id="filtroGenero">
-
         <option value="">Todos os gêneros</option>
-
-        <option>Ação</option>
-        <option>Aventura</option>
-        <option>Comédia</option>
-        <option>Drama</option>
-        <option>Ficção</option>
-        <option>Terror</option>
-        <option>Romance</option>
-        <option>Suspense</option>
-        <option>Animação</option>
-        <option>Documentário</option>
-        <option>Outro</option>
-
+        <option value="Ação">Ação</option>
+        <option value="Aventura">Aventura</option>
+        <option value="Comédia">Comédia</option>
+        <option value="Drama">Drama</option>
+        <option value="Ficção">Ficção</option>
+        <option value="Terror">Terror</option>
+        <option value="Romance">Romance</option>
+        <option value="Suspense">Suspense</option>
+        <option value="Animação">Animação</option>
+        <option value="Documentário">Documentário</option>
+        <option value="Outro">Outro</option>
     </select>
 
     <div id="listaFilmes"></div>
